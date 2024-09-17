@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlotMachine.CoreTests", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlotMachine.UnitTests", "tests\SlotMachine.UnitTests\SlotMachine.UnitTests.csproj", "{A1E46EDD-120B-49DB-A227-D4BD4B3969E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlotMachine.Infrastructure.CrossCutting", "src\SlotMachine.Infrastructure.CrossCutting\SlotMachine.Infrastructure.CrossCutting.csproj", "{3E19EC6A-0967-48AF-B925-DEF621F63554}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{A1E46EDD-120B-49DB-A227-D4BD4B3969E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1E46EDD-120B-49DB-A227-D4BD4B3969E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1E46EDD-120B-49DB-A227-D4BD4B3969E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E19EC6A-0967-48AF-B925-DEF621F63554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E19EC6A-0967-48AF-B925-DEF621F63554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E19EC6A-0967-48AF-B925-DEF621F63554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E19EC6A-0967-48AF-B925-DEF621F63554}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{185F7EB1-A17C-4369-B6D3-F312506FD06B} = {C6832063-9E49-4A8F-8DD0-877CA414E33C}
@@ -60,5 +66,6 @@ Global
 		{5B0B3216-8634-40ED-A7A4-5D0BB3D51CCD} = {C6832063-9E49-4A8F-8DD0-877CA414E33C}
 		{67B3E7DA-F20C-420C-B8CB-D9B6702FA6BA} = {5A15DBD2-F5E6-43C0-A389-FA107E9AE91D}
 		{A1E46EDD-120B-49DB-A227-D4BD4B3969E1} = {5A15DBD2-F5E6-43C0-A389-FA107E9AE91D}
+		{3E19EC6A-0967-48AF-B925-DEF621F63554} = {C6832063-9E49-4A8F-8DD0-877CA414E33C}
 	EndGlobalSection
 EndGlobal

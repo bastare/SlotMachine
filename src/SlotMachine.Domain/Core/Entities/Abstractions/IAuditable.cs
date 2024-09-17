@@ -1,7 +1,7 @@
 namespace SlotMachine.Domain.Core.Entities.Abstractions;
 
 public interface IAuditable<TKey> : IAuditable
-    where TKey : IComparable, IComparable<TKey>, IEquatable<TKey>
+    where TKey : IComparable<TKey>, IEquatable<TKey>
 {
     new TKey CreatedBy { get; set; }
 

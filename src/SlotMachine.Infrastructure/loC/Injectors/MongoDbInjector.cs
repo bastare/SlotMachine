@@ -4,10 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using MongoDB.Driver;
 using Abstractions;
+using Microsoft.AspNetCore.Hosting;
 
-public sealed class Injector : IInjector
+public sealed class MongoDbInjector : IInjector
 {
-    public static void Inject(IServiceCollection serviceCollection)
+    public static void Inject(IServiceCollection serviceCollection, IWebHostEnvironment webHostEnvironment)
     {
         serviceCollection.TryAddSingleton<IMongoClient>(provider =>
         {
@@ -15,4 +16,9 @@ public sealed class Injector : IInjector
             return new MongoClient(connectionString);
         });
     }
+
+	public static void RemoveInjection ( IServiceCollection serviceCollection )
+	{
+		serviceCollection.RemoveAll<IMongoClient>();
+	}
 }

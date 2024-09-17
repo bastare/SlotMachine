@@ -11,6 +11,7 @@
     <ItemGroup>
       <ProjectReference Include="..\SlotMachine.Application\SlotMachine.Application.csproj" />
       <ProjectReference Include="..\SlotMachine.Domain\SlotMachine.Domain.csproj" />
+      <ProjectReference Include="..\SlotMachine.Infrastructure.CrossCutting\SlotMachine.Infrastructure.CrossCutting.csproj" />
     </ItemGroup>
 
 </Project>

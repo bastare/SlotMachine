@@ -3,6 +3,7 @@ namespace SlotMachine.Api.Endpoints.v1;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Abstractions;
+using Contracts;
 
 public sealed class PlayerEndpoints : IHasEndpoints
 {
@@ -17,10 +18,11 @@ public sealed class PlayerEndpoints : IHasEndpoints
 	}
 
 	public static async Task<IResult> UpdateBalance (
+ 		[FromBody] UpdatePlayerBalanceRequestBody updatePlayerBalanceRequestBody ,
 		[FromServices] IMediator mediator ,
 		CancellationToken cancellationToken )
 	{
 
-		return Results.Ok ();
+		return Results.Ok (new());
 	}
 }

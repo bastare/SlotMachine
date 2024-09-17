@@ -1,11 +1,11 @@
 using SlotMachine.Api.Endpoints.v1;
+using SlotMachine.Infrastructure.CrossCutting.loC;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 builder.Configuration.AddEnvironmentVariables ();
+
+builder.Services.InjectLayersDependency(builder.Environment);
 
 var app = builder.Build();
 

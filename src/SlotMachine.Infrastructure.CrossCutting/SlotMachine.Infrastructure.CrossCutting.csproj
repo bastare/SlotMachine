@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemDefinitionGroup>
+        <ProjectReference>
+            <PrivateAssets>all</PrivateAssets>
+        </ProjectReference>
+    </ItemDefinitionGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SlotMachine.Infrastructure\SlotMachine.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

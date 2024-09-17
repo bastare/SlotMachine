@@ -3,19 +3,25 @@ namespace SlotMachine.Domain.Core.Entities;
 using FluentValidation;
 using FluentValidation.Results;
 using Abstractions;
-using Validators;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Validators;
 
-public sealed class Player :
+public sealed class SlotMachine :
 	IAuditableEntity<ObjectId>,
 	IHasValidationAsync
 {
+	[BsonId]
 	public ObjectId Id { get; set; }
 
-	public long Amount { get; set; }
+	public long Height { get; set; }
+
+	public long Width { get; set; }
+
+	public int[][]? WinLines { get; set; } = [];
 
 	public ObjectId CreatedBy { get; set; }
 
@@ -51,10 +57,10 @@ public sealed class Player :
 	}
 
 	public async Task ValidateAndThrowAsync ( CancellationToken cancellationToken = default )
-		=> await new PlayerEntityValidator ()
+		=> await new SlotMachineEntityValidator ()
 			.ValidateAndThrowAsync ( instance: this , cancellationToken );
 
 	public async Task<ValidationResult> ValidateAsync ( CancellationToken cancellationToken = default )
-		=> await new PlayerEntityValidator ()
+		=> await new SlotMachineEntityValidator ()
 			.ValidateAsync ( instance: this , cancellationToken );
 }

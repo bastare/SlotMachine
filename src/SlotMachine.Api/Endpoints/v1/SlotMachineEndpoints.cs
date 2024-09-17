@@ -3,6 +3,7 @@ namespace SlotMachine.Api.Endpoints.v1;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Abstractions;
+using Contracts;
 
 public sealed class SlotMachineEndpoints : IHasEndpoints
 {
@@ -17,6 +18,7 @@ public sealed class SlotMachineEndpoints : IHasEndpoints
 	}
 
 	public static async Task<IResult> Spin (
+		[FromBody] SpinSlotMachineRequestBody spinSlotMachineRequestBody ,
 		[FromServices] IMediator mediator ,
 		CancellationToken cancellationToken )
 	{
