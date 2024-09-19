@@ -2,11 +2,11 @@ namespace SlotMachine.Domain.Core.Entities.Abstractions;
 
 using FluentValidation.Results;
 
-public interface IHasValidationAsync
+public interface IHasValidation
 {
-	Task<ValidationResult> ValidateAsync ( CancellationToken cancellationToken = default );
+	ValidationResult Validate ();
 
-	Task ValidateAndThrowAsync ( CancellationToken cancellationToken = default );
+	void ValidateAndThrow ();
 
-	Task<bool> IsValidAsync ( CancellationToken cancellationToken = default );
+	bool IsValid ();
 }

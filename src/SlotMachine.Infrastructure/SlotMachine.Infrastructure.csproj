@@ -11,6 +11,7 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
         <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
         <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+        <PackageReference Include="Testcontainers.MongoDb" Version="3.10.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,15 +1,17 @@
 namespace SlotMachine.Infrastructure.CrossCutting.loC;
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.loC.Injectors;
+using Microsoft.Extensions.Configuration;
 
 public static class InjectBootstrapper
 {
-	public static void InjectLayersDependency ( this IServiceCollection serviceCollection , IWebHostEnvironment webHostEnvironment )
+	public static void InjectLayersDependency ( this IServiceCollection serviceCollection , IConfiguration configuration )
 	{
-		AddHttpContextAccessorInjector.Inject ( serviceCollection , webHostEnvironment );
-		MongoDbInjector.Inject ( serviceCollection , webHostEnvironment );
-		RestApiInjector.Inject ( serviceCollection , webHostEnvironment );
+		AddHttpContextAccessorInjector.Inject ( serviceCollection , configuration );
+		FluentValidatorInjector.Inject ( serviceCollection , configuration );
+		MediatorInjector.Inject ( serviceCollection , configuration );
+		MongoDbInjector.Inject ( serviceCollection , configuration );
+		RestApiInjector.Inject ( serviceCollection , configuration );
 	}
 }

@@ -5,21 +5,24 @@ using FluentValidation.Results;
 using Abstractions;
 using Validators;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Rules;
 
 public sealed class Player :
-	IAuditableEntity<ObjectId>,
-	IHasValidationAsync
+	IAuditableEntity<string>,
+	IHasValidation
 {
-	public ObjectId Id { get; set; }
+	[BsonId]
+	[BsonElement ( "_id" )]
+	[BsonRepresentation ( BsonType.ObjectId )]
+	public string Id { get; set; }
 
 	public long Amount { get; set; }
 
-	public ObjectId CreatedBy { get; set; }
+	public string CreatedBy { get; set; }
 
-	public ObjectId LastModifiedBy { get; set; }
+	public string LastModifiedBy { get; set; }
 
 	public DateTime Created { get; set; }
 
@@ -28,33 +31,49 @@ public sealed class Player :
 	object IEntity.Id
 	{
 		get => Id;
-		set => Id = ( ObjectId ) value;
+		set => Id = ( string ) value;
 	}
 
 	object IAuditable.CreatedBy
 	{
 		get => CreatedBy;
-		set => CreatedBy = ( ObjectId ) value;
+		set => CreatedBy = ( string ) value;
 	}
 
 	object? IAuditable.LastModifiedBy
 	{
 		get => LastModifiedBy;
-		set => LastModifiedBy = ( ObjectId ) value!;
+		set => LastModifiedBy = ( string ) value!;
 	}
 
-	public async Task<bool> IsValidAsync ( CancellationToken cancellationToken = default )
+	public void Bet ( long bet )
 	{
-		var result_ = await ValidateAsync ( cancellationToken );
+		if ( bet <= SlotMachineRules.BetRules.MinBet )
+			throw new ArgumentOutOfRangeException ( nameof ( bet ) , $"Bet should be greater than {SlotMachineRules.BetRules.MinBet}" );
 
-		return result_.IsValid;
+		if ( Amount < bet )
+			throw new ArgumentOutOfRangeException ( nameof ( bet ) , "Player amount is not enough for the bet" );
+
+		Amount -= bet;
 	}
 
-	public async Task ValidateAndThrowAsync ( CancellationToken cancellationToken = default )
-		=> await new PlayerEntityValidator ()
-			.ValidateAndThrowAsync ( instance: this , cancellationToken );
+	public void AddPlayerAmount ( long amountToAdd )
+	{
+		if ( amountToAdd <= 0 )
+			throw new ArgumentOutOfRangeException ( nameof ( amountToAdd ) , "Amount should be positive" );
 
-	public async Task<ValidationResult> ValidateAsync ( CancellationToken cancellationToken = default )
-		=> await new PlayerEntityValidator ()
-			.ValidateAsync ( instance: this , cancellationToken );
+		Amount += amountToAdd;
+	}
+
+	public bool IsValid ()
+		=> Validate ()
+			.IsValid;
+
+	public void ValidateAndThrow ()
+		=> new PlayerEntityValidator ()
+			.ValidateAndThrow ( instance: this );
+
+	public ValidationResult Validate ()
+		=> new PlayerEntityValidator ()
+			.Validate ( instance: this );
 }

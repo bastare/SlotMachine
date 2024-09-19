@@ -1,21 +1,21 @@
 using SlotMachine.Api.Endpoints.v1;
 using SlotMachine.Infrastructure.CrossCutting.loC;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder ( args );
 
 builder.Configuration.AddEnvironmentVariables ();
 
-builder.Services.InjectLayersDependency(builder.Environment);
+builder.Services.InjectLayersDependency ( builder.Configuration );
 
-var app = builder.Build();
+var app = builder.Build ();
 
-if (app.Environment.IsDevelopment())
+if ( app.Environment.IsDevelopment () )
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger ();
+	app.UseSwaggerUI ();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection ();
 
 MapEndpoints ( app );
 
@@ -39,3 +39,5 @@ static void MapEndpoints ( WebApplication webApplication )
 	SlotMachineEndpoints.MapEndpoints ( routeGroupBuilder_ );
 	PlayerEndpoints.MapEndpoints ( routeGroupBuilder_ );
 }
+
+public partial class Program { }

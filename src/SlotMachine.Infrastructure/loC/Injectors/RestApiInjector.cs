@@ -3,13 +3,15 @@ namespace SlotMachine.Infrastructure.loC.Injectors;
 using Microsoft.Extensions.DependencyInjection;
 using Abstractions;
 using Asp.Versioning;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 public sealed class RestApiInjector : IInjector
 {
-	public static void Inject ( IServiceCollection serviceCollection , IWebHostEnvironment webHostEnvironment )
+	public static void Inject ( IServiceCollection serviceCollection , IConfiguration _ )
 	{
 		InjectVersionServices ();
+
+		serviceCollection.AddSwaggerGen ();
 
 		void InjectVersionServices ()
 		{
@@ -27,10 +29,5 @@ public sealed class RestApiInjector : IInjector
 
 			serviceCollection.AddEndpointsApiExplorer ();
 		}
-	}
-
-	public static void RemoveInjection ( IServiceCollection serviceCollection )
-	{
-		throw new NotImplementedException ();
 	}
 }

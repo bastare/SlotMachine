@@ -4,28 +4,28 @@ using FluentValidation;
 using FluentValidation.Results;
 using Abstractions;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Validators;
 
 public sealed class SlotMachine :
-	IAuditableEntity<ObjectId>,
-	IHasValidationAsync
+	IAuditableEntity<string>,
+	IHasValidation
 {
 	[BsonId]
-	public ObjectId Id { get; set; }
+	[BsonElement ( "_id" )]
+	[BsonRepresentation ( BsonType.ObjectId )]
+	public string Id { get; set; }
 
-	public long Height { get; set; }
+	public int Height { get; set; }
 
-	public long Width { get; set; }
+	public int Width { get; set; }
 
-	public int[][]? WinLines { get; set; } = [];
+	public List<int[][]>? WinLines { get; set; } = [];
 
-	public ObjectId CreatedBy { get; set; }
+	public string CreatedBy { get; set; }
 
-	public ObjectId LastModifiedBy { get; set; }
+	public string LastModifiedBy { get; set; }
 
 	public DateTime Created { get; set; }
 
@@ -34,33 +34,29 @@ public sealed class SlotMachine :
 	object IEntity.Id
 	{
 		get => Id;
-		set => Id = ( ObjectId ) value;
+		set => Id = ( string ) value;
 	}
 
 	object IAuditable.CreatedBy
 	{
 		get => CreatedBy;
-		set => CreatedBy = ( ObjectId ) value;
+		set => CreatedBy = ( string ) value;
 	}
 
 	object? IAuditable.LastModifiedBy
 	{
 		get => LastModifiedBy;
-		set => LastModifiedBy = ( ObjectId ) value!;
+		set => LastModifiedBy = ( string ) value!;
 	}
 
-	public async Task<bool> IsValidAsync ( CancellationToken cancellationToken = default )
-	{
-		var result_ = await ValidateAsync ( cancellationToken );
+	public bool IsValid ()
+		=> Validate ().IsValid;
 
-		return result_.IsValid;
-	}
+	public void ValidateAndThrow ()
+		=> new SlotMachineEntityValidator ()
+			.ValidateAndThrow ( instance: this );
 
-	public async Task ValidateAndThrowAsync ( CancellationToken cancellationToken = default )
-		=> await new SlotMachineEntityValidator ()
-			.ValidateAndThrowAsync ( instance: this , cancellationToken );
-
-	public async Task<ValidationResult> ValidateAsync ( CancellationToken cancellationToken = default )
-		=> await new SlotMachineEntityValidator ()
-			.ValidateAsync ( instance: this , cancellationToken );
+	public ValidationResult Validate ()
+		=> new SlotMachineEntityValidator ()
+			.Validate ( instance: this );
 }

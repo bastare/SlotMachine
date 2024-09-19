@@ -1,20 +1,22 @@
 namespace SlotMachine.Domain.Core.Entities.Validators;
 
 using FluentValidation;
+using Rules;
 
-public sealed class SlotMachineEntityValidator : AbstractValidator<SlotMachine>
+internal sealed class SlotMachineEntityValidator : AbstractValidator<SlotMachine>
 {
 	public SlotMachineEntityValidator ()
 	{
 		RuleFor ( slotMachine => slotMachine.WinLines )
-			.NotEmpty ();
+			.NotEmpty ()
+			.WithMessage ( "WinLines should not be empty" );
 
 		RuleFor ( slotMachine => slotMachine.Height )
-			.GreaterThan ( 2 )
-			.NotEmpty ();
+			.GreaterThanOrEqualTo ( SlotMachineRules.MatrixSizeRules.MinHeight )
+			.WithMessage ( $"Height should be greater than {SlotMachineRules.MatrixSizeRules.MinHeight}" );
 
 		RuleFor ( slotMachine => slotMachine.Width )
-			.GreaterThan ( 2 )
-			.NotEmpty ();
+			.GreaterThan ( SlotMachineRules.MatrixSizeRules.MinWidth )
+			.WithMessage ( $"Width should be greater than {SlotMachineRules.MatrixSizeRules.MinWidth}" );
 	}
 }
