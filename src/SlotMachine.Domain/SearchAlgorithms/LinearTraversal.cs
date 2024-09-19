@@ -4,12 +4,17 @@ using System.Numerics;
 
 public static class PathConsecutiveTraversal
 {
+	public static class Rules
+	{
+		public const int ConsecutiveCountLimitAllowed = 1;
+	}
+
 	public sealed record ConsecutiveNumber ( int ConsecutiveValue , int ConsecutiveCount );
 
 	public static TResult Execute<TResult> ( int[,] matrix , List<int[][]> paths , int consecutiveCountLimit , Func<ConsecutiveNumber , TResult> consecutiveNumberTransformer )
 		where TResult : struct, INumber<TResult>
 	{
-		if ( consecutiveCountLimit < 1 )
+		if ( consecutiveCountLimit < Rules.ConsecutiveCountLimitAllowed )
 			throw new ArgumentOutOfRangeException ( nameof ( consecutiveCountLimit ) , "ConsecutiveCountLimit should be greater than 1" );
 
 		TResult totalResult_ = default;
@@ -26,11 +31,11 @@ public static class PathConsecutiveTraversal
 
 			for ( var index_ = 1; index_ < path.Length; index_++ )
 			{
-				var previous_ = path[ index_ - 1 ];
-				var current_ = path[ index_ ];
+				var (currentX_, currentY_) = (path[ index_ ][ 0 ], path[ index_ ][ 1 ]);
+				var (previousX_, previousY_) = (path[ index_ - 1 ][ 0 ], path[ index_ - 1 ][ 1 ]);
 
-				var currentValue_ = matrix[ current_[ 0 ] , current_[ 1 ] ];
-				var previousValue_ = matrix[ previous_[ 0 ] , previous_[ 1 ] ];
+				var currentValue_ = matrix[ currentX_ , currentY_ ];
+				var previousValue_ = matrix[ previousX_ , previousY_ ];
 
 				if ( currentValue_ == previousValue_ )
 				{
@@ -39,7 +44,7 @@ public static class PathConsecutiveTraversal
 					continue;
 				}
 
-				if ( consecutiveCount_ >= consecutiveCountLimit )
+				if ( consecutiveCountLimit <= consecutiveCount_ )
 					pathResult_ +=
 						consecutiveNumberTransformer (
 							new ( ConsecutiveValue: previousValue_ , ConsecutiveCount: consecutiveCount_ ) );

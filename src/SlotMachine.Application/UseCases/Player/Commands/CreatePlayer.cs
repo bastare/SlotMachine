@@ -43,15 +43,15 @@ public static class CreatePlayer
 
 			try
 			{
-				var newPlayer_ = new Player ();
-				newPlayer_.AddPlayerAmount ( request.Amount );
+				var playerForCreation_ = new Player ();
+				playerForCreation_.AddPlayerAmount ( request.Amount );
 
 				await unit.GetCollection<Player> ()
-					.InsertOneAsync ( newPlayer_ , cancellationToken: cancellationToken );
+					.InsertOneAsync ( playerForCreation_ , cancellationToken: cancellationToken );
 
 				return new CreatedPlayerResponse (
-					newPlayer_.Id ,
-					newPlayer_.Amount );
+					playerForCreation_.Id ,
+					playerForCreation_.Amount );
 			}
 			catch ( Exception )
 			{

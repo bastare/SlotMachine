@@ -62,19 +62,12 @@ public sealed class PlayerEndpoints : IHasEndpoints
 		[FromServices] IMediator mediator ,
 		CancellationToken cancellationToken )
 	{
-		try
-		{
-			var response_ = await mediator.Send (
-				new AddPlayerAmountCommand (
-					addPlayerBalanceRequestBody.PlayerId ,
-					addPlayerBalanceRequestBody.Amount ) ,
-				cancellationToken );
+		var response_ = await mediator.Send (
+			new AddPlayerAmountCommand (
+				addPlayerBalanceRequestBody.PlayerId ,
+				addPlayerBalanceRequestBody.Amount ) ,
+			cancellationToken );
 
-			return Results.Ok ( response_ );
-		}
-		catch ( Exception exception )
-		{
-			return Results.Problem ( exception.Message );
-		}
+		return Results.Ok ( response_ );
 	}
 }

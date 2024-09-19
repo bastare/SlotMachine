@@ -4,5 +4,5 @@ public interface ISlotMachineSessionAggregate
 {
 	public sealed record SpinResponse ( long Amount , long WinAmount , int[,] WinMatrix );
 
-	public SpinResponse Spin ( long bet );
+	SpinResponse Spin ( long bet );
 }
