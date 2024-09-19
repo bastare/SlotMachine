@@ -58,7 +58,7 @@ public sealed class PlayerEndpoints : IHasEndpoints
 	}
 
 	public static async Task<IResult> AddPlayerBalance (
-		 [FromBody] AddPlayerBalanceRequestBody addPlayerBalanceRequestBody ,
+		[FromBody] AddPlayerBalanceRequestBody addPlayerBalanceRequestBody ,
 		[FromServices] IMediator mediator ,
 		CancellationToken cancellationToken )
 	{
