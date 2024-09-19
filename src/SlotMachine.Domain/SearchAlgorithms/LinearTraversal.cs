@@ -44,17 +44,10 @@ public static class PathConsecutiveTraversal
 						consecutiveNumberTransformer (
 							new ( ConsecutiveValue: previousValue_ , ConsecutiveCount: consecutiveCount_ ) );
 
-				consecutiveCount_ = 1;
+				return pathResult_;
 			}
-
-			var last_ = path[ ^1 ];
-
-			if ( consecutiveCount_ >= consecutiveCountLimit )
-				pathResult_ += consecutiveNumberTransformer (
-					new ( ConsecutiveValue: matrix[ last_[ 0 ] , last_[ 1 ] ] , ConsecutiveCount: consecutiveCount_ ) );
 
 			return pathResult_;
 		}
 	}
-
 }

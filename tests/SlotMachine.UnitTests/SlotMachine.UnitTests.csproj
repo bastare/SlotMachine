@@ -18,6 +18,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\SlotMachine.Domain\SlotMachine.Domain.csproj" />
+        <ProjectReference Include="..\SlotMachine.CoreTests\SlotMachine.CoreTests.csproj" />
     </ItemGroup>
 
 </Project>

@@ -16,4 +16,8 @@
         <Using Include="Xunit" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\SlotMachine.Domain\SlotMachine.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

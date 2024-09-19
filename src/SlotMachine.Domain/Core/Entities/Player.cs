@@ -59,7 +59,7 @@ public sealed class Player :
 
 	public void AddPlayerAmount ( long amountToAdd )
 	{
-		if ( amountToAdd <= 0 )
+		if ( amountToAdd < 0 )
 			throw new ArgumentOutOfRangeException ( nameof ( amountToAdd ) , "Amount should be positive" );
 
 		Amount += amountToAdd;
